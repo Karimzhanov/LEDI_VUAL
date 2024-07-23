@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Отчет по товарам</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f9fa;
+        }
+        .navbar {
+            margin-bottom: 50px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .container h1 {
+            margin-bottom: 30px;
+            text-align: center;
+            color: #343a40;
+        }
+        .card {
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: #ffffff;
+        }
+        .card-body {
+            padding: 30px;
+        }
+        .table thead {
+            background-color: #007bff;
+            color: white;
+        }
+        .table tbody tr:hover {
+            background-color: #f1f1f1;
+        }
+        .footer {
+            margin-top: 50px;
+            padding: 20px;
+            background-color: #343a40;
+            color: white;
+            text-align: center;
+            border-top: 3px solid #007bff;
+            position: absolute;
+            width: 100%;
+            bottom: 0;
+        }
+        .center-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        .btn-clear {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">LEDI_VUAL</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'index' %}">Главная</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Отчеты <span class="sr-only">(текущая)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'add_sale' %}">Добавить Товар </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'add_sale' %}">Добавить Продажу</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container center-content">
+        <h1>Отчет по товарам</h1>
+        <button type="button" class="btn btn-danger btn-clear" onclick="clearReport()">Очистить</button>
+        <a href="{% url 'report_history' %}" class="btn btn-primary mt-3">История отчетов</a>
+        <form method="POST" action="{% url 'save_report' %}">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-success mt-3">Сохранить отчет</button>
+        </form>
+
+        <!-- Таблица с отчетом по продажам -->
+        <div class="card mt-3 w-75">
+            <div class="card-body">
+                <h4 class="card-title">Продажи</h4>
+                <table class="table table-hover w-100">
+                    <thead>
+                        <tr>
+                            <th>Название товара</th>
+                            <th>Продано всего</th>
+                            <th>Общий доход</th>
+                            <th>СОМ</th>
+                        </tr>
+                    </thead>
+                    <tbody id="reportTableBody">
+                        {% for item in report %}
+                        <tr>
+                            <td>{{ item.product__name }}</td>
+                            <td>{{ item.total_sold }}</td>
+                            <td>{{ item.total_revenue }}</td>
+                            <td>{{ item.som }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th colspan="3" class="text-right">Итог:</th>
+                            <th id="totalSOM">{{ total_som }}</th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+
+        <!-- Таблица с оставшимися товарами -->
+        <div class="card mt-3 w-75">
+            <div class="card-body">
+                <h4 class="card-title">Оставшиеся товары</h4>
+                <table class="table table-hover w-100">
+                    <thead>
+                        <tr>
+                            <th>Название товара</th>
+                            <th>Остаток на складе</th>
+                        </tr>
+                    </thead>
+                    <tbody id="remainingProductsTableBody">
+                        {% for product in remaining_products %}
+                        <tr>
+                            <td>{{ product.name }}</td>
+                            <td>{{ product.calculated_remaining_stock|default_if_none:"0" }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        &copy; 2024 Проект LEDI_VUAL. Все права защищены.
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        function clearReport() {
+            if (confirm('Вы уверены, что хотите очистить отчет?')) {
+                // Очистить таблицы на клиентской стороне
+                document.getElementById('reportTableBody').innerHTML = '';
+                document.getElementById('remainingProductsTableBody').innerHTML = '';
+                document.getElementById('totalSOM').innerText = '0';
+                // Отправить запрос на сервер для сброса состояния отчета
+                fetch("{% url 'clear_report' %}", {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRFToken': '{{ csrf_token }}',
+                        'Content-Type': 'application/json'
+                    },
+                }).then(response => {
+                    if (!response.ok) {
+                        alert('Ошибка при очистке отчета');
+                    }
+                });
+            }
+        }
+    </script>
+</body>
+</html>

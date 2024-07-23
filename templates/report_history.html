@@ -1,0 +1,159 @@
+{% load custom_filters %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>История отчетов</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f9fa;
+        }
+        .navbar {
+            margin-bottom: 30px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .container {
+            margin-top: 50px;
+        }
+        .card {
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .card-body {
+            padding: 30px;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #343a40;
+        }
+        .list-group-item {
+            background-color: #ffffff;
+            border: 1px solid #e9ecef;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            padding: 20px;
+            transition: background-color 0.3s ease;
+        }
+        .list-group-item:hover {
+            background-color: #f1f1f1;
+        }
+        .list-group-item strong {
+            color: #007bff;
+        }
+        .footer {
+            margin-top: 50px;
+            padding: 20px;
+            background-color: #343a40;
+            color: white;
+            text-align: center;
+            border-top: 3px solid #007bff;
+        }
+    </style>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f2f5;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            margin: 0;
+        }
+        .navbar {
+            margin-bottom: 50px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .container {
+            flex: 1;
+        }
+        .welcome-section {
+            background-color: #ffffff;
+            padding: 50px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        .welcome-section:hover {
+            transform: translateY(-5px);
+        }
+        .welcome-section h1 {
+            font-size: 3em;
+            margin-bottom: 20px;
+            color: #343a40;
+        }
+        .welcome-section p {
+            font-size: 1.2em;
+            color: #6c757d;
+        }
+        .footer {
+            padding: 20px;
+            background-color: #343a40;
+            color: white;
+            text-align: center;
+            border-top: 3px solid #007bff;
+            margin-top: auto;
+        }
+        .btn-custom {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+        .btn-custom:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">LEDI_VUAL</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'index' %}">Главная</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'product_report' %}">Отчет по товарам</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="{% url 'report_history' %}">История отчетов</a>        
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'add_sale' %}">Добавить Продажу</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container mt-5">
+        <h1>История отчетов</h1>
+        <div class="card mt-3">
+            <div class="card-body">
+                <ul class="list-group">
+                    {% for report in reports %}
+                    <li class="list-group-item">
+                        <strong>Дата:</strong> {{ report.created_at|date:"d M Y H:i" }}<br>
+                        {% for item in report.report_data %}
+                            <strong>Товар:</strong> {{ item.product__name }}<br>
+                            <strong>Продано:</strong> {{ item.total_sold }}<br>
+                            <strong>цена:</strong> {{ item.total_revenue|format_decimal }}<br>
+                        {% endfor %}
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        &copy; 2024 Проект LEDI_VUAL. Все права защищены.
+    </div>
+</body>
+</html>
