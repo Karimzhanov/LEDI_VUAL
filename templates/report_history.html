@@ -12,8 +12,20 @@
             background-color: #f8f9fa;
         }
         .navbar {
-            margin-bottom: 30px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            background: linear-gradient(145deg, #000000, #519bc0); /* Градиент от красного к синему */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);              box-shadow: none;
+            border-bottom: 3px solid #00fff7;
+        }
+        .navbar-brand {
+            color: white !important;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        .nav-link {
+            color: white !important;
+        }
+        .nav-link:hover {
+            color: #007bff !important;
         }
         .container {
             margin-top: 50px;
@@ -47,71 +59,43 @@
         .footer {
             margin-top: 50px;
             padding: 20px;
-            background-color: #343a40;
-            color: white;
+            background: linear-gradient(145deg, #000000, #519bc0); /* Градиент от красного к синему */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);              color: white;
             text-align: center;
-            border-top: 3px solid #007bff;
+            border-top: 3px solid #00a2ff;
         }
-    </style>
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f0f2f5;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-            margin: 0;
-        }
-        .navbar {
-            margin-bottom: 50px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-        .container {
-            flex: 1;
-        }
-        .welcome-section {
+        .stats-card {
             background-color: #ffffff;
-            padding: 50px;
             border-radius: 10px;
-            text-align: center;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease;
+            padding: 20px;
+            margin-bottom: 30px;
         }
-        .welcome-section:hover {
-            transform: translateY(-5px);
-        }
-        .welcome-section h1 {
-            font-size: 3em;
-            margin-bottom: 20px;
+        .stats-card h2 {
             color: #343a40;
         }
-        .welcome-section p {
-            font-size: 1.2em;
-            color: #6c757d;
+        .stats-card .stat {
+            margin-bottom: 10px;
         }
-        .footer {
-            padding: 20px;
-            background-color: #343a40;
-            color: white;
-            text-align: center;
-            border-top: 3px solid #007bff;
-            margin-top: auto;
+        .stats-card .stat strong {
+            color: #007bff;
         }
-        .btn-custom {
-            background-color: #007bff;
-            color: white;
-            padding: 10px 20px;
-            border-radius: 5px;
+        .stats-card .collapse {
+            margin-top: 10px;
+        }
+        .stats-card .btn-link {
             text-decoration: none;
-            transition: background-color 0.3s ease;
+            color: #007bff;
+            font-weight: bold;
+            font-size: 1.2rem;
         }
-        .btn-custom:hover {
-            background-color: #0056b3;
+        .stats-card .btn-link:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg">
         <a class="navbar-brand" href="#">LEDI_VUAL</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -135,6 +119,65 @@
     </nav>
     <div class="container mt-5">
         <h1>История отчетов</h1>
+        
+        <div class="stats-card">
+            <h2>Общая статистика</h2>
+            <div class="stat">
+                <strong>Общее количество проданных товаров:</strong> {{ weekly_stats.sold_products }}
+            </div>
+            <div class="stat">
+                <strong>Общий доход:</strong> {{ weekly_stats.revenue|format_decimal }}
+            </div>
+        </div>
+        
+        <div class="stats-card">
+            <h2>
+                <a class="btn btn-link" data-toggle="collapse" href="#weeklyStats" role="button" aria-expanded="false" aria-controls="weeklyStats">
+                    Еженедельная статистика
+                </a>
+            </h2>
+            <div class="collapse" id="weeklyStats">
+                <div class="stat">
+                    <strong>Общее количество проданных товаров:</strong> {{ weekly_stats.sold_products }}
+                </div>
+                <div class="stat">
+                    <strong>Общий доход:</strong> {{ weekly_stats.revenue|format_decimal }}
+                </div>
+            </div>
+        </div>
+        
+        <div class="stats-card">
+            <h2>
+                <a class="btn btn-link" data-toggle="collapse" href="#monthlyStats" role="button" aria-expanded="false" aria-controls="monthlyStats">
+                    Ежемесячная статистика
+                </a>
+            </h2>
+            <div class="collapse" id="monthlyStats">
+                <div class="stat">
+                    <strong>Общее количество проданных товаров:</strong> {{ monthly_stats.sold_products }}
+                </div>
+                <div class="stat">
+                    <strong>Общий доход:</strong> {{ monthly_stats.revenue|format_decimal }}
+                </div>
+            </div>
+        </div>
+        
+        <div class="stats-card">
+            <h2>
+                <a class="btn btn-link" data-toggle="collapse" href="#yearlyStats" role="button" aria-expanded="false" aria-controls="yearlyStats">
+                    Ежегодная статистика
+                </a>
+            </h2>
+            <div class="collapse" id="yearlyStats">
+                <div class="stat">
+                    <strong>Общее количество проданных товаров:</strong> {{ yearly_stats.sold_products }}
+                </div>
+                <div class="stat">
+                    <strong>Общий доход:</strong> {{ yearly_stats.revenue|format_decimal }}
+                </div>
+            </div>
+        </div>  
+
         <div class="card mt-3">
             <div class="card-body">
                 <ul class="list-group">
@@ -155,5 +198,9 @@
     <div class="footer">
         &copy; 2024 Проект LEDI_VUAL. Все права защищены.
     </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

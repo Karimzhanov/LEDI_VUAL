@@ -1,3 +1,5 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -8,56 +10,132 @@
     <style>
         body {
             font-family: 'Arial', sans-serif;
-            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
         }
         .navbar {
             margin-bottom: 50px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            background: linear-gradient(145deg, #000000, #519bc0); /* Градиент от красного к синему */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);  
         }
-        .container h1 {
-            margin-bottom: 30px;
+        .navbar-brand, .nav-link {
+            color: #fff !important;
+        }
+        .navbar-brand:hover, .nav-link:hover {
+            color: #adb5bd !important;
+        }
+        .container {
+            flex: 1;
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+        }
+        header {
+            background: #000000;
+            color: #fff;
+            padding-top: 10px;
+            min-height: 70px;
+            border-bottom: #000000 3px solid;
+        }
+        header a {
+            color: #fff;
+            text-decoration: none;
+            text-transform: uppercase;
+            font-size: 16px;
+        }
+        header ul {
+            padding: 0;
+            list-style: none;
+        }
+        header ul li {
+            display: inline;
+            padding: 0 20px;
+        }
+        .main-title {
             text-align: center;
-            color: #343a40;
+            padding: 30px 0;
+            font-size: 3em;
+            color: #000000;
         }
-        .card {
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            background-color: #ffffff;
+        .section {
+            margin-bottom: 20px;
+            padding: 20px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgb(255, 255, 255);
         }
-        .card-body {
-            padding: 30px;
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            border: 1px solid #ddd;
         }
-        .table thead {
-            background-color: #007bff;
-            color: white;
+        table th, table td {
+            padding: 10px;
+            text-align: left;
+            border: 1px solid #ddd;
         }
-        .table tbody tr:hover {
-            background-color: #f1f1f1;
+        table thead {
+            background: linear-gradient(145deg, #ffe7e7, #000000); /* Градиент от красного к синему */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);            color: #fff;
+        }
+        table tbody tr:nth-child(even) {
+            background: #f2f2f2;
+        }
+        .section-title {
+            background: linear-gradient(145deg, #000000, #519bc0); /* Градиент от красного к синему */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);            color: #fff;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            outline: none;
+            color: #fff;
+            background: linear-gradient(145deg, #519bc0, #000000); /* Градиент от красного к синему */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);             border: none;
+            border-radius: 15px;
+            box-shadow: 0 9px #999;
+            margin-right: 10px;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+        }
+        .btn:hover {background-color: #555}
+        .btn:active {
+            background-color: #55555580;
+            box-shadow: 0 5px #666;
+            transform: translateY(4px);
+        }
+        .btn.red {
+                background-color: rgb(250, 30, 30);
+        }
+        .btn.blue {
+            background-color: blue;
+        }
+        .btn.green {
+            background-color: rgb(14, 119, 0);
         }
         .footer {
-            margin-top: 50px;
             padding: 20px;
-            background-color: #343a40;
-            color: white;
+            background: linear-gradient(145deg, #000000, #519bc0); /* Градиент от красного к синему */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);              color: white;
             text-align: center;
-            border-top: 3px solid #007bff;
-            position: absolute;
-            width: 100%;
-            bottom: 0;
-        }
-        .center-content {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-        }
-        .btn-clear {
-            margin-top: 20px;
+            border-top: 3px solid #b49393;
+            margin-top: auto;
         }
     </style>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-dark">
         <a class="navbar-brand" href="#">LEDI_VUAL</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -67,11 +145,11 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'index' %}">Главная</a>
                 </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">Отчеты <span class="sr-only">(текущая)</span></a>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'product_report' %}">Отчеты</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'add_sale' %}">Добавить Товар </a>
+                    <a class="nav-link" href="{% url 'add_product' %}">Добавить Товар</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'add_sale' %}">Добавить Продажу</a>
@@ -80,69 +158,69 @@
         </div>
     </nav>
 
-    <div class="container center-content">
-        <h1>Отчет по товарам</h1>
-        <button type="button" class="btn btn-danger btn-clear" onclick="clearReport()">Очистить</button>
-        <a href="{% url 'report_history' %}" class="btn btn-primary mt-3">История отчетов</a>
-        <form method="POST" action="{% url 'save_report' %}">
-            {% csrf_token %}
-            <button type="submit" class="btn btn-success mt-3">Сохранить отчет</button>
-        </form>
+    <div class="container">
+        <h2 class="main-title">Отчет по товарам</h2>
 
-        <!-- Таблица с отчетом по продажам -->
-        <div class="card mt-3 w-75">
-            <div class="card-body">
-                <h4 class="card-title">Продажи</h4>
-                <table class="table table-hover w-100">
-                    <thead>
-                        <tr>
-                            <th>Название товара</th>
-                            <th>Продано всего</th>
-                            <th>Общий доход</th>
-                            <th>СОМ</th>
-                        </tr>
-                    </thead>
-                    <tbody id="reportTableBody">
-                        {% for item in report %}
-                        <tr>
-                            <td>{{ item.product__name }}</td>
-                            <td>{{ item.total_sold }}</td>
-                            <td>{{ item.total_revenue }}</td>
-                            <td>{{ item.som }}</td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                    <tfoot>
-                        <tr>
-                            <th colspan="3" class="text-right">Итог:</th>
-                            <th id="totalSOM">{{ total_som }}</th>
-                        </tr>
-                    </tfoot>
-                </table>
-            </div>
+        <div class="section">
+            <div class="section-title">Отчет по товарам</div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Название товара</th>
+                        <th>Сумма покупки</th>
+                        <th>Продано всего</th>
+                        <th>Сумма продажи</th>
+                        <th>Общий доход</th>
+                        <th>Остаток на складе</th>
+                        <th>Прибыль</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in report %}
+                    <tr>
+                        <td>{{ item.product__name }}</td>
+                        <td>{{ item.total_purchase }}</td>
+                        <td>{{ item.total_sold }}</td>
+                        <td>{{ item.total_revenue }}</td>
+                        <td>{{ item.total_revenue }}</td>
+                        <td>{{ item.remaining_stock }}</td>
+                        <td>{{ item.profit }}</td>
+                    </tr>
+                    {% endfor %}
+                    <tr>
+                        <td colspan="4" style="text-align:right; font-weight: bold;">Итог:</td>
+                        <td>{{ total_revenue }}</td>
+                        <td></td>
+                        <td>{{ total_profit }}</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
 
-        <!-- Таблица с оставшимися товарами -->
-        <div class="card mt-3 w-75">
-            <div class="card-body">
-                <h4 class="card-title">Оставшиеся товары</h4>
-                <table class="table table-hover w-100">
-                    <thead>
-                        <tr>
-                            <th>Название товара</th>
-                            <th>Остаток на складе</th>
-                        </tr>
-                    </thead>
-                    <tbody id="remainingProductsTableBody">
-                        {% for product in remaining_products %}
-                        <tr>
-                            <td>{{ product.name }}</td>
-                            <td>{{ product.calculated_remaining_stock|default_if_none:"0" }}</td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
+        <div class="section">
+            <div class="section-title">Общий отчет</div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Итоговая сумма покупки</th>
+                        <th>Итоговая сумма продажи</th>
+                        <th>Итоговая прибыль</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{ total_purchase }}</td>
+                        <td>{{ total_revenue }}</td>
+                        <td>{{ total_profit }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="section" style="text-align: center;">
+            <button class="btn red" onclick="clearReport()">Очистить</button>
+            <button class="btn blue" onclick="goToReportHistory()">История отчетов</button>
+            <button class="btn green" onclick="saveReport()">Сохранить отчет</button>
         </div>
     </div>
 
@@ -150,29 +228,48 @@
         &copy; 2024 Проект LEDI_VUAL. Все права защищены.
     </footer>
 
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script>
+        const reportHistoryUrl = "{% url 'report_history' %}";
+
         function clearReport() {
-            if (confirm('Вы уверены, что хотите очистить отчет?')) {
-                // Очистить таблицы на клиентской стороне
-                document.getElementById('reportTableBody').innerHTML = '';
-                document.getElementById('remainingProductsTableBody').innerHTML = '';
-                document.getElementById('totalSOM').innerText = '0';
-                // Отправить запрос на сервер для сброса состояния отчета
-                fetch("{% url 'clear_report' %}", {
-                    method: 'POST',
-                    headers: {
-                        'X-CSRFToken': '{{ csrf_token }}',
-                        'Content-Type': 'application/json'
-                    },
-                }).then(response => {
-                    if (!response.ok) {
-                        alert('Ошибка при очистке отчета');
-                    }
-                });
-            }
+            fetch("{% url 'clear_report' %}", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': '{{ csrf_token }}',
+                },
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    alert('Отчет успешно очищен');
+                    location.reload();
+                } else {
+                    alert('Произошла ошибка при очистке отчета');
+                }
+            });
+        }
+
+        function saveReport() {
+            fetch("{% url 'save_report' %}", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': '{{ csrf_token }}',
+                },
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    alert('Отчет успешно сохранен');
+                } else {
+                    alert('Произошла ошибка при сохранении отчета');
+                }
+            });
+        }
+
+        function goToReportHistory() {
+            window.location.href = reportHistoryUrl;
         }
     </script>
 </body>

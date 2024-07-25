@@ -3,7 +3,9 @@ from .models import Product, Sale, Report
 
 # Register your models here.
 
-admin.site.register(Product)
+@admin.register(Product)
+class ProductAdmin(admin.ModelAdmin):
+    list_display = ('name', 'category', 'purchase_price', 'remaining_stock')
 admin.site.register(Sale)
 
 @admin.register(Report)

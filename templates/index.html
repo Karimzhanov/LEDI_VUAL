@@ -13,58 +13,73 @@
             flex-direction: column;
             min-height: 100vh;
             margin: 0;
+            perspective: 1000px; /* Perspective to enable 3D effect */
         }
         .navbar {
             margin-bottom: 50px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            background: linear-gradient(145deg, #000000, #519bc0); /* Градиент от красного к синему */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);  
+        }
+        .navbar-brand, .nav-link {
+            color: #fff !important;
+        }
+        .navbar-brand:hover, .nav-link:hover {
+            color: #adb5bd !important;
         }
         .container {
             flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
         .welcome-section {
             background-color: #ffffff;
             padding: 50px;
             border-radius: 10px;
             text-align: center;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease;
+            box-shadow: 0 4px 8px rgba(24, 23, 23, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            transform: rotateY(0deg); /* Initial state */
         }
         .welcome-section:hover {
-            transform: translateY(-5px);
+            transform: translateY(-5px) rotateY(10deg); /* 3D rotation on hover */
+            box-shadow: 0 8px 16px rgba(24, 23, 23, 0.5);
         }
         .welcome-section h1 {
             font-size: 3em;
             margin-bottom: 20px;
-            color: #343a40;
+            color: #080808;
         }
         .welcome-section p {
             font-size: 1.2em;
-            color: #6c757d;
+            color: #000000;
         }
         .footer {
             padding: 20px;
-            background-color: #343a40;
-            color: white;
+            background: linear-gradient(145deg, #000000, #519bc0); /* Градиент от красного к синему */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);  
             text-align: center;
-            border-top: 3px solid #007bff;
+            border-top: 3px solid #68bbbe;
             margin-top: auto;
         }
         .btn-custom {
-            background-color: #007bff;
+            background: linear-gradient(145deg, #000000, #519bc0);
             color: white;
             padding: 10px 20px;
             border-radius: 5px;
             text-decoration: none;
-            transition: background-color 0.3s ease;
+            box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1), -5px -5px 10px rgba(255, 255, 255, 0.5);
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            border: none;
         }
         .btn-custom:hover {
-            background-color: #0056b3;
-        }
+            background: linear-gradient(145deg, #000000, #519bc0);
+            transform: translateY(-3px);
+        } 
     </style>
-    
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-dark">
         <a class="navbar-brand" href="#">LEDI_VUAL</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -78,7 +93,7 @@
                     <a class="nav-link" href="{% url 'product_report' %}">Отчеты</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'add_product' %}">Добавить Товар </a>
+                    <a class="nav-link" href="{% url 'add_product' %}">Добавить Товар</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'add_sale' %}">Добавить Продажу</a>
@@ -95,11 +110,9 @@
         </div>
     </div>  
 
-
     <footer class="footer">
         &copy; 2024 Проект LEDI_VUAL. Все права защищены.
     </footer>
-
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>

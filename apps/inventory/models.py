@@ -5,13 +5,11 @@ from django.utils import timezone
 
 # Create your models here.
 class Product(models.Model):
-    name = models.CharField(max_length=100)
-    category = models.CharField(max_length=100)
-    price = models.DecimalField(max_digits=10, decimal_places=2)
-    initial_stock = models.PositiveIntegerField()
-    remaining_stock = models.PositiveIntegerField()
-
-
+    name = models.CharField("Название", max_length=100)
+    category = models.CharField("Категория", max_length=100)
+    purchase_price = models.DecimalField("Цена покупки", max_digits=7, decimal_places=2)
+    initial_stock = models.PositiveIntegerField("Начальный запас")
+    remaining_stock = models.PositiveIntegerField("Остаток на складе")
 
     class Meta:
         verbose_name = "Продукт"
@@ -21,10 +19,10 @@ class Product(models.Model):
         return self.name
 
 class Sale(models.Model):
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    quantity = models.PositiveIntegerField()
-    price = models.DecimalField(max_digits=10, decimal_places=2, default=0.0)
-    sale_date = models.DateField(default=datetime.date.today)
+    product = models.ForeignKey(Product, verbose_name="Продукт", on_delete=models.CASCADE)
+    quantity = models.PositiveIntegerField("Количество")
+    sale_price = models.DecimalField("Цена продажи", max_digits=7, decimal_places=2, default=0.0)
+    sale_date = models.DateField("Дата продажи", default=datetime.date.today)
 
     class Meta:
         verbose_name = "Продажа"
@@ -33,23 +31,14 @@ class Sale(models.Model):
     def __str__(self):
         return f'{self.product.name} - {self.quantity}'
 
-
-
 class Report(models.Model):
-    created_at = models.DateTimeField(auto_now_add=True)
-    report_data = models.TextField()  # храним отчет в виде текстового поля
+    created_at = models.DateTimeField("Дата создания", auto_now_add=True)
+    report_data = models.TextField("Данные отчета")  # храним отчет в виде текстового поля
 
     def __str__(self):
-        return f'Report from {self.created_at}'
+        return f'Отчет от {self.created_at}'
 
-
-    @classmethod
-    def delete_old_reports(cls):
-        cutoff_date = timezone.now() - timedelta(days=30)
-        cls.objects.filter(created_at__lt=cutoff_date).delete()
 
     class Meta:
         verbose_name = "Отчет"
         verbose_name_plural = "Отчеты"
-
-

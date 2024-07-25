@@ -8,7 +8,7 @@
     <style>
         body {
             font-family: 'Arial', sans-serif;
-            background-color: #f0f2f5;
+            background: linear-gradient(135deg, #f0f2f5, #cfd9df);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -17,30 +17,38 @@
         }
         .error-container {
             text-align: center;
-            background-color: #ffffff;
+            background: linear-gradient(145deg, #ffffff, #e6e6e6);
             padding: 50px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 15px;
+            box-shadow: 10px 10px 20px #aaaaaa, -10px -10px 20px #ffffff;
+            transition: transform 0.3s ease;
+        }
+        .error-container:hover {
+            transform: scale(1.05);
         }
         .error-container h1 {
             font-size: 6em;
             margin-bottom: 20px;
             color: #343a40;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
         }
         .error-container p {
             font-size: 1.5em;
             color: #6c757d;
+            margin-bottom: 30px;
         }
         .btn-custom {
-            background-color: #007bff;
+            background: linear-gradient(145deg, #ff0000, #0056b3);
             color: white;
             padding: 10px 20px;
             border-radius: 5px;
             text-decoration: none;
-            transition: background-color 0.3s ease;
+            box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1), -5px -5px 10px rgba(255, 255, 255, 0.5);
+            transition: background-color 0.3s ease, transform 0.3s ease;
         }
         .btn-custom:hover {
-            background-color: #0056b3;
+            background: linear-gradient(145deg, #0056b3, #007bff);
+            transform: translateY(-3px);
         }
     </style>
 </head>

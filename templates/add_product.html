@@ -8,44 +8,7 @@
     <style>
         body {
             font-family: 'Arial', sans-serif;
-            background-color: #f0f2f5;
-        }
-        .navbar {
-            margin-bottom: 50px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-        .form-container {
-            background-color: #ffffff;
-            padding: 50px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            max-width: 600px;
-            margin: 0 auto;
-        }
-        .footer {
-            margin-top: 50px;
-            padding: 20px;
-            background-color: #343a40;
-            color: white;
-            text-align: center;
-            border-top: 3px solid #007bff;
-        }
-        .btn-custom {
-            background-color: #007bff;
-            color: white;
-            padding: 10px 20px;
-            border-radius: 5px;
-            text-decoration: none;
-            transition: background-color 0.3s ease;
-        }
-        .btn-custom:hover {
-            background-color: #0056b3;
-        }
-    </style>
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f0f2f5;
+            background: linear-gradient(135deg, #f0f2f5, #cfd9df);
             display: flex;
             flex-direction: column;
             min-height: 100vh;
@@ -53,54 +16,80 @@
         }
         .navbar {
             margin-bottom: 50px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            background: linear-gradient(145deg, #000000, #519bc0); /* Градиент от красного к синему */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);  
+        }
+        .navbar-brand, .nav-link {
+            color: #fff !important;
+        }
+        .navbar-brand:hover, .nav-link:hover {
+            color: #adb5bd !important;
         }
         .container {
             flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
-        .welcome-section {
-            background-color: #ffffff;
+        .form-container {
+            background: linear-gradient(145deg, #ffffff, #e6e6e6);
             padding: 50px;
-            border-radius: 10px;
+            border-radius: 15px;
             text-align: center;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            box-shadow: 10px 10px 20px #aaaaaa, -10px -10px 20px #ffffff;
             transition: transform 0.3s ease;
+            max-width: 600px;
+            margin: 0 auto;
         }
-        .welcome-section:hover {
+        .form-container:hover {
             transform: translateY(-5px);
         }
-        .welcome-section h1 {
-            font-size: 3em;
+        .form-container h2 {
+            font-size: 2.5em;
             margin-bottom: 20px;
             color: #343a40;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
         }
-        .welcome-section p {
-            font-size: 1.2em;
-            color: #6c757d;
+        .form-group label {
+            font-weight: bold;
+            color: #343a40;
         }
-        .footer {
-            padding: 20px;
-            background-color: #343a40;
-            color: white;
-            text-align: center;
-            border-top: 3px solid #007bff;
-            margin-top: auto;
+        .form-control {
+            border-radius: 5px;
+            border: 1px solid #ced4da;
+            padding: 10px;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        .form-control:focus {
+            border-color: #00ccff;
+            box-shadow: 0 0 5px rgba(255, 0, 0, 0.916);
         }
         .btn-custom {
-            background-color: #007bff;
-            color: white;
+            background: linear-gradient(145deg, #000000, #519bc0); /* Градиент от красного к синему */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);              color: white;
             padding: 10px 20px;
             border-radius: 5px;
             text-decoration: none;
-            transition: background-color 0.3s ease;
+            box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1), -5px -5px 10px rgba(255, 255, 255, 0.5);
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            border: none;
         }
         .btn-custom:hover {
-            background-color: #0056b3;
+            background: linear-gradient(145deg, #000000, #519bc0);
+            transform: translateY(-3px);
+        }
+        .footer {
+            padding: 20px;
+            background: linear-gradient(145deg, #000000, #519bc0); /* Градиент от красного к синему */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);              color: white;
+            text-align: center;
+            border-top: 3px solid #00d9ff;
+            margin-top: auto;
         }
     </style>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-dark">
         <a class="navbar-brand" href="#">LEDI_VUAL</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -135,13 +124,40 @@
                 <div class="form-group">
                     <label for="category">Категория</label>
                     <select class="form-control" id="category" name="category" required>
-                        <option value="нижнее бельё">Нижнее бельё</option>
-                        <!-- Другие категории, если они есть -->
+                        <option value="лифоны">лифоны</option>
+                        <option value="лифон набор">лифон набор </option>
+                        <option value="трусы без шов">трусы без шов</option>
+                        <option value="трусы ажурные">трусы ажурные</option>
+                        <option value="трусы хб">трусы хб</option>
+                        <option value="стринги">стринги</option>
+                        <option value="боди">боди</option>
+                        <option value="чулки">чулки</option>
+                        <option value="пеньуары">пеньуары</option>
+                        <option value="халаты">халаты</option>
+                        <option value="пижамы">пижамы</option>
+                        <option value="купальник">купальник</option>
+                        <option value="платки">платки</option>
+                        <option value="тапочки">тапочки</option>
+                        <option value="носки">носки</option>
+                        <option value="парфюм">парфюм</option>
+                        <option value="парфюм ферамон">парфюм ферамон</option>
+                        <option value="лубрикант">лубрикант</option>
+                        <option value="крем">крем</option>
+                        <option value="спрей">спрей</option>
+                        <option value="карты игральные">карты игральные</option>
+                        <option value="презервативы">презервативы</option>
+                        <option value="бижутерия">бижутерия</option>
+                        <option value="смазка">смазка</option>
+                        <option value="освежитель">освежитель</option>
+                        <option value="выброторы">выброторы</option>
+                        <option value="одежды +18">одежды +18</option>
+                        <option value="интим игрушки">интим игрушки</option>
+                        <!-- Другие опции, если есть -->
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="price">Цена</label>
-                    <input type="number" class="form-control" id="price" name="price" step="0.01" required>
+                    <label for="purchase_price">Цена покупки</label>
+                    <input type="number" class="form-control" id="purchase_price" name="purchase_price" step="0.01" required>
                 </div>
                 <div class="form-group">
                     <label for="initial_stock">Начальные запасы</label>
